@@ -80,20 +80,8 @@ function createShader(gl, str, type){
 }
 
 function initShader(gl){
-  var vertexShaderSource = `
-		attribute vec3 vertexPos;
-		uniform mat4 modelViewMatrix;
-    uniform mat4 projectionMatrix;
-    
-		void main(void) {
-		    gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPos, 1.0);
-    }
-  `
-	var fragmentShaderSource = `
-		void main(void) {
-      gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-    }
-  `
+  var vertexShaderSource = document.querySelector("#vertexShaderSource").textContent;
+	var fragmentShaderSource = document.querySelector("#fragmentShaderSource").textContent;
 
   var vertexShader = createShader(gl, vertexShaderSource, "vertex");
   var fragmentShader = createShader(gl, fragmentShaderSource, "fragment");

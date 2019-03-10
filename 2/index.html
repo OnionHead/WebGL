@@ -16,17 +16,24 @@
 
   <script id="vertexShaderSource" type="shader/x-fragment">
     attribute vec3 vertexPos;
-    uniform mat4 modelViewMatrix;
-    uniform mat4 projectionMatrix;
-
-    void main(void){
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPos, 1.0);
-    }
+		attribute vec4 vertexColor;
+		uniform mat4 modelViewMatrix;
+		uniform mat4 projectionMatrix;
+    varying vec4 vColor;
+    
+		void main(void) {
+		  gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPos, 1.0);
+      
+		  vColor = vertexColor;
+		}
   </script>
 
   <script id="fragmentShaderSource" type="shader/x-fragment">
+    precision mediump float;
+    varying vec4 vColor;
+
     void main(void){
-      gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+      gl_FragColor = vColor;
     }
   </script>
 
