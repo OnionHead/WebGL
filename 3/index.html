@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>webgl</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>  
+</head>
+<body>
+  <canvas id="webgl" width="500px" height="500px"></canvas>
+
+  <script id="vertexShaderSource" type="shader/x-fragment">
+    attribute vec3 vertexPos;
+		attribute vec2 texCoord;
+		uniform mat4 modelViewMatrix;
+		uniform mat4 projectionMatrix;
+    varying vec2 vTexCoord;
+    
+		void main(void) {
+		  gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPos, 1.0);
+      
+		  vTexCoord = texCoord;
+		}
+  </script>
+
+  <script id="fragmentShaderSource" type="shader/x-fragment">
+    precision mediump float;
+    varying vec2 vTexCoord;
+    uniform sampler2D uSampler;
+
+    void main(void){
+      gl_FragColor = texture2D(uSampler, vec2(vTexCoord.s, vTexCoord.t));
+    }
+  </script>
+
+  <script src="script.js" type="text/javascript"></script>
+</body>
+</html>
